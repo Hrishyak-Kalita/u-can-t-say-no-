@@ -1,35 +1,39 @@
+// ---------- ELEMENTS ----------
 const card = document.getElementById("card");
 const loader = document.getElementById("loader");
 const content = document.getElementById("content");
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const bgMusic = document.getElementById("bgMusic");
+const buttonArea = document.getElementById("buttonArea");
 
+noBtn.style.transform = "translate(0px, 0px)";
+ 
+let canMove = true;
+
+
+// ---------- INITIAL STATE ----------
 document.body.classList.add("romantic-mode");
 
 let heartbreakMode = false;
+let groupIndex = 0;
+let messageIndex = 0;
 
-
-let escapeCount = 0;
-
-const messages = [
-    
-  "Wait wait 😳",
-  "Are you sure?",
-  "Why you running, pookie? 🥺",
-  "That hurt 💔",
-  "I’m begging now 😭",
-  "PLEASE 😭💖",
-  "Okay last chance 😭"
+// ---------- MESSAGE GROUPS ----------
+const messageGroups = [
+  ["Wait wait 😳", "Are you sure?", "Hey… slow down 😌", "That was too fast 👀"],
+  ["Playing hard to get? 😏", "You know you want to click YES", "Don’t be shy 😌"],
+  ["Why you running, pookie? 🥺", "That hurt a little 💔", "Please don’t do this 😣"],
+  ["Okay… this hurts 💔", "I really tried 😔", "This was supposed to be romantic…"]
 ];
 
-/* Show card content */
+// ---------- LOADER ----------
 setTimeout(() => {
   loader.classList.add("hidden");
   content.classList.remove("hidden");
-}, 1500);
+}, 2500);
 
-/* Enable music on first interaction */
+// ---------- MUSIC ----------
 function enableMusic() {
   bgMusic.muted = false;
   bgMusic.volume = 0;
@@ -44,58 +48,77 @@ function enableMusic() {
 document.body.addEventListener("click", enableMusic, { once: true });
 document.body.addEventListener("touchstart", enableMusic, { once: true });
 
-/* NO button logic */
-function moveNo() {
-  escapeCount++;
+// ---------- HEARTBREAK EMOJI ----------
+function showHeartBreak(x, y) {
+  const heart = document.createElement("div");
+  heart.textContent = "💔";
+  heart.style.position = "absolute";
+  heart.style.left = `${x + 10}px`;
+  heart.style.top = `${y - 10}px`;
+  heart.style.fontSize = "18px";
+  heart.style.pointerEvents = "none";
+  heart.style.animation = "heartBreakFloat 1.4s ease forwards";
+  heart.style.zIndex = "4";
+  card.appendChild(heart);
+  setTimeout(() => heart.remove(), 1400);
+}
 
-  // 💔 switch mood once
-  if (!heartbreakMode) {
+// ---------- NO BUTTON ----------
+function moveNo() {
+  if (!canMove) return;        // ✅ guard FIRST
+  canMove = false;
+
+const areaRect = buttonArea.getBoundingClientRect();
+const x = Math.random() * (areaRect.width - noBtn.offsetWidth);
+const y = Math.random() * (areaRect.height - noBtn.offsetHeight);
+
+noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+
+
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+  const msg = document.createElement("div");
+  msg.className = "message";
+
+  const currentGroup = messageGroups[groupIndex];
+  msg.textContent = currentGroup[messageIndex];
+
+  messageIndex++;
+  if (messageIndex >= currentGroup.length) {
+    messageIndex = 0;
+    groupIndex = (groupIndex + 1) % messageGroups.length;
+  }
+
+  if (groupIndex === 3 && !heartbreakMode) {
     heartbreakMode = true;
     document.body.classList.remove("romantic-mode");
     document.body.classList.add("heartbreak-mode");
   }
 
-  const rect = card.getBoundingClientRect();
-  const x = Math.random() * (rect.width - noBtn.offsetWidth);
-  const y = Math.random() * (rect.height - noBtn.offsetHeight - 90);
-
-  noBtn.style.left = `${x}px`;
-  noBtn.style.top = `${y}px`;
-
-  const msg = document.createElement("div");
-  msg.className = "message";
-  msg.innerText =
-    messages[Math.min(escapeCount - 1, messages.length - 1)];
   msg.style.left = `${x}px`;
-  msg.style.top = `${y - 28}px`;
+  msg.style.top = `${y - 30}px`;
+
   card.appendChild(msg);
-  setTimeout(() => msg.remove(), 1400);
+  setTimeout(() => msg.remove(), 2800);
+
+  showHeartBreak(x, y);
+
+  // re-enable movement after animation settles
+  setTimeout(() => {
+    canMove = true;
+  }, 350);
 }
+
 
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-function showHeartBreak(x, y) {
-  const heart = document.createElement("div");
-  heart.innerText = "💔";
-  heart.style.position = "absolute";
-  heart.style.left = `${x + 10}px`;
-  heart.style.top = `${y - 10}px`;
-  heart.style.fontSize = "18px";
-  heart.style.opacity = "0.8";
-  heart.style.animation = "heartBreakFloat 1.4s ease forwards";
-  heart.style.pointerEvents = "none";
-
-  card.appendChild(heart);
-  setTimeout(() => heart.remove(), 1400);
-}
-
-
-/* YES celebration */
+// ---------- YES ----------
 yesBtn.addEventListener("click", () => {
   for (let i = 0; i < 30; i++) {
     const h = document.createElement("div");
-    h.innerText = "💖";
+    h.textContent = "💖";
     h.className = "heart";
     h.style.left = Math.random() * 100 + "vw";
     h.style.bottom = "-20px";
@@ -106,19 +129,16 @@ yesBtn.addEventListener("click", () => {
 
   setTimeout(() => {
     window.location.href = "next.html";
-  }, 800);
+  }, 900);
 });
 
-/* Background heart rain */
+// ---------- BACKGROUND HEART RAIN ----------
 setInterval(() => {
   const heart = document.createElement("div");
   heart.className = "heart";
-
-  heart.innerText = heartbreakMode ? "💔" : "💖";
+  heart.textContent = heartbreakMode ? "💔" : "💖";
   heart.style.left = Math.random() * 100 + "vw";
   heart.style.bottom = "-20px";
-
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 6000);
 }, 900);
-

@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
@@ -9,33 +9,52 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #141e30, #243b55);
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
 }
 
 .card {
   position: relative;
-  width: 400px;
-  height: 300px;
+  width: 420px;
+  height: 320px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 20px;
   padding: 30px;
   text-align: center;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 25px 60px rgba(0,0,0,0.25);
   overflow: hidden;
 }
 
-h1 {
-  margin-bottom: 40px;
-  font-size: 22px;
+/* ❤️ Heart Loader */
+.loader {
+  font-size: 48px;
+  animation: pulse 1s infinite;
 }
 
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1); }
+}
+
+.hidden {
+  display: none;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 40px;
+}
+
+/* Buttons */
 button {
-  padding: 12px 24px;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
   position: absolute;
+  width: 90px;
+  height: 44px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: left 0.25s ease, top 0.25s ease;
 }
 
 #yesBtn {
@@ -48,6 +67,22 @@ button {
 #noBtn {
   background: #dc3545;
   color: white;
-  right: 90px;
+  left: 230px;
   bottom: 40px;
 }
+
+/* Floating message */
+.message {
+  position: absolute;
+  font-size: 14px;
+  color: #555;
+  animation: fadeUp 1.5s forwards;
+}
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(10px); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+

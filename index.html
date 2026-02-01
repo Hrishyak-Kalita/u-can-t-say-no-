@@ -2,20 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>You Can’t Say No ❤️</title>
+  <title>Pookie Question 💖</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+    <audio id="bgMusic" loop>
+  <source id="musicSource" type="audio/mpeg" />
+</audio>
+
+
+    <div id="customize" style="margin-bottom:16px; text-align:center;">
+  <input id="nameInput" placeholder="Pookie's name 💖" />
+  <select id="songInput">
+    <option value="soft-music.mp3">Soft Romance 🎵</option>
+    <option value="lofi.mp3">Lo-Fi Love 💕</option>
+    <option value="piano.mp3">Piano Bliss 🎹</option>
+  </select>
+  <br /><br />
+  <button onclick="generateLink()">Generate Pookie Link 💌</button>
+</div>
+
 
   <div class="card" id="card">
 
-    <div id="loader" class="loader">❤️</div>
+    <div id="loader" class="loader">💗</div>
 
     <div id="content" class="hidden">
-      <h1>Do you like this page? 😌</h1>
+      <h1>
+        Will you go out with me, pookie? 🥹💘
+      </h1>
 
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
+      <button id="yesBtn">Yes 💖</button>
+      <button id="noBtn">No 💔</button>
     </div>
 
   </div>

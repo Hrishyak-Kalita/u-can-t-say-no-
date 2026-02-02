@@ -1,40 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>YAY 💖</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YAY 💖</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
 
-  <style>
-    html, body {
-      width: 100%;
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden; /* 🔒 no scroll */
-    }
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden; /* 🔒 no scroll */
+      }
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
-      font-family: "Poppins", Arial, sans-serif;
-      color: white;
-      text-align: center;
-    }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+        font-family: "Poppins", Arial, sans-serif;
+        color: white;
+        text-align: center;
+      }
 
-    h1 {
-      font-size: clamp(26px, 6vw, 42px);
-      padding: 20px;
-    }
-  </style>
-</head>
+      h1 {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(32px, 6vw, 56px);
+        padding: 20px;
+      }
+    </style>
+  </head>
 
-<body>
-  <h1>
-    Knew it 😌💘<br />
-    You’re my pookie now.
-  </h1>
-</body>
+  <body>
+    <h1>
+      Knew it 😌💘<br />
+      You’re my pookie now.
+    </h1>
+    <audio id="bgMusic" autoplay loop>
+      <source src="apnaSuno.mp3" type="audio/mpeg" />
+    </audio>
+  </body>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+    music.volume = 0;
+
+    let v = 0;
+    const fade = setInterval(() => {
+      v += 0.02;
+      music.volume = Math.min(v, 0.25);
+      if (v >= 0.25) clearInterval(fade);
+    }, 100);
+  </script>
 </html>

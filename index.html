@@ -1,34 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>You Can’t Say No 💖</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You Can’t Say No 💖</title>
 
-  <div class="card" id="card">
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&family=Nunito:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
 
-    <div id="loader" class="loader">💗</div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-    <div id="content" class="hidden">
-      <h1>Will you go out with me? 🥹💘</h1>
+  <body class="romantic-mode">
+    <div class="card" id="card">
+      <svg
+        class="heart-border"
+        viewBox="0 0 512 512"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M256 470
+         C 40 320 40 160 150 110
+         C 220 80 256 130 256 170
+         C 256 130 292 80 362 110
+         C 472 160 472 320 256 470 Z"
+        />
+      </svg>
 
-      <!-- ✅ Buttons live inside this area -->
-      <div class="button-area" id="buttonArea">
-        <button id="yesBtn">Yes 💖</button>
-        <button id="noBtn">No 💔</button>
+      <div id="loader" class="loader">💗</div>
+
+      <div id="content" class="hidden">
+        <h1>Will you be my valentine ? 💘</h1>
+        <div class="button-area" id="buttonArea">
+          <button id="yesBtn">Yes 💖</button>
+          <button id="noBtn">No 💔</button>
+        </div>
       </div>
     </div>
 
-  </div>
+    <!-- 🎵 Background Music -->
+    <audio id="bgMusic" autoplay loop muted>
+      <source src="apnaSuno.mp3" type="audio/mpeg" />
+    </audio>
 
-  <!-- 🎵 Background Music -->
-  <audio id="bgMusic" autoplay loop muted>
-    <source src="soft-music.mp3" type="audio/mpeg" />
-  </audio>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>

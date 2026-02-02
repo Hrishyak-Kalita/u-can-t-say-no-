@@ -8,9 +8,8 @@ const bgMusic = document.getElementById("bgMusic");
 const buttonArea = document.getElementById("buttonArea");
 
 noBtn.style.transform = "translate(0px, 0px)";
- 
-let canMove = true;
 
+let canMove = true;
 
 // ---------- INITIAL STATE ----------
 document.body.classList.add("romantic-mode");
@@ -21,10 +20,27 @@ let messageIndex = 0;
 
 // ---------- MESSAGE GROUPS ----------
 const messageGroups = [
-  ["Wait wait 😳", "Are you sure?", "Hey… slow down 😌", "That was too fast 👀"],
-  ["Playing hard to get? 😏", "You know you want to click YES", "Don’t be shy 😌"],
-  ["Why you running, pookie? 🥺", "That hurt a little 💔", "Please don’t do this 😣"],
-  ["Okay… this hurts 💔", "I really tried 😔", "This was supposed to be romantic…"]
+  [
+    "Wait wait 😳",
+    "Are you sure?",
+    "Hey… slow down 😌",
+    "That was too fast 👀",
+  ],
+  [
+    "Playing hard to get? 😏",
+    "You know you want to click YES",
+    "Don’t be shy 😌",
+  ],
+  [
+    "Why you running, pookie? 🥺",
+    "That hurt a little 💔",
+    "Please don’t do this 😣",
+  ],
+  [
+    "Okay… this hurts 💔",
+    "I really tried 😔",
+    "This was supposed to be romantic…",
+  ],
 ];
 
 // ---------- LOADER ----------
@@ -35,9 +51,10 @@ setTimeout(() => {
 
 // ---------- MUSIC ----------
 function enableMusic() {
+  console.log("CLICK DETECTED — trying to play audio");
   bgMusic.muted = false;
   bgMusic.volume = 0;
-  bgMusic.play().catch(() => {});
+  bgMusic.play().catch((err) => console.log(err));
   let v = 0;
   const fade = setInterval(() => {
     v += 0.02;
@@ -45,6 +62,7 @@ function enableMusic() {
     if (v >= 0.25) clearInterval(fade);
   }, 100);
 }
+
 document.body.addEventListener("click", enableMusic, { once: true });
 document.body.addEventListener("touchstart", enableMusic, { once: true });
 
@@ -65,16 +83,14 @@ function showHeartBreak(x, y) {
 
 // ---------- NO BUTTON ----------
 function moveNo() {
-  if (!canMove) return;        // ✅ guard FIRST
+  if (!canMove) return; // ✅ guard FIRST
   canMove = false;
 
-const areaRect = buttonArea.getBoundingClientRect();
-const x = Math.random() * (areaRect.width - noBtn.offsetWidth);
-const y = Math.random() * (areaRect.height - noBtn.offsetHeight);
+  const areaRect = buttonArea.getBoundingClientRect();
+  const x = Math.random() * (areaRect.width - noBtn.offsetWidth);
+  const y = Math.random() * (areaRect.height - noBtn.offsetHeight);
 
-noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
-
+  noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
   noBtn.style.transform = `translate(${x}px, ${y}px)`;
 
@@ -110,12 +126,12 @@ noBtn.style.transform = `translate(${x}px, ${y}px)`;
   }, 350);
 }
 
-
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
 // ---------- YES ----------
 yesBtn.addEventListener("click", () => {
+  // hearts
   for (let i = 0; i < 30; i++) {
     const h = document.createElement("div");
     h.textContent = "💖";
@@ -127,9 +143,21 @@ yesBtn.addEventListener("click", () => {
     setTimeout(() => h.remove(), 3000);
   }
 
+  // fade out music
+  let v = bgMusic.volume;
+  const fadeOut = setInterval(() => {
+    v -= 0.02;
+    bgMusic.volume = Math.max(v, 0);
+    if (v <= 0) {
+      clearInterval(fadeOut);
+      bgMusic.pause();
+    }
+  }, 80);
+
+  // redirect after fade
   setTimeout(() => {
     window.location.href = "next.html";
-  }, 900);
+  }, 1000);
 });
 
 // ---------- BACKGROUND HEART RAIN ----------

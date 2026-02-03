@@ -75,9 +75,11 @@ body {
   justify-content: center;
   text-align: center;
   font-family: "Dancing Script", cursive;
-  font-size: clamp(26px, 5vw, 40px);
+  font-size: clamp(43px, 5vw, 40px);
   color: #fff;
   text-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  padding-top: 100px;
 }
 
 /* ---------- INTERACTION AREA (HARD BOUNDARY) ---------- */
@@ -115,9 +117,8 @@ body {
 
   z-index: 2;
 
-  text-decoration: none;   /* remove underline */
+  text-decoration: none; /* remove underline */
   outline: none;
-
 }
 
 /* heart lobes */
@@ -133,13 +134,13 @@ body {
 
 /* left lobe */
 #yesBtn::before {
-  top: -52px;   /* ⬅️ correct ratio */
+  top: -52px; /* ⬅️ correct ratio */
   left: 0;
 }
 
 /* right lobe */
 #yesBtn::after {
-  left: 52px;   /* ⬅️ correct ratio */
+  left: 52px; /* ⬅️ correct ratio */
   top: 0;
 }
 
@@ -164,7 +165,7 @@ body {
 
   font-family: "Nunito", sans-serif;
   font-weight: 900;
-  font-size: 30px;          /* ⬅️ correct size */
+  font-size: 30px; /* ⬅️ correct size */
   letter-spacing: 1.4px;
 
   color: #fff;
@@ -177,7 +178,8 @@ body {
 
 /* animations */
 @keyframes heartBeat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateX(-50%) rotate(-45deg) scale(1);
   }
   50% {
@@ -186,7 +188,8 @@ body {
 }
 
 @keyframes strokePulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.6;
     transform: scale(1);
   }
@@ -195,8 +198,6 @@ body {
     transform: scale(1.06);
   }
 }
-
-
 
 /* ---------- NO BUTTON (BIGGER + SAFE) ---------- */
 #noBtn {

@@ -42,7 +42,7 @@ body {
 
 /* ---------- CONTENT ---------- */
 .container {
-  width: min(95vw, 600px);
+  width: min(92vw, 550px);
   padding: 36px 24px 42px;
 
   backdrop-filter: blur(12px);
@@ -51,10 +51,14 @@ body {
 
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
 }
-
+.text {
+  font-size: 20px;
+ 
+ 
+}
 h1 {
   font-family: "Dancing Script", cursive;
-  font-size: clamp(34px, 7vw, 48px);
+  font-size: clamp(45px, 7vw, 48px);
   margin-bottom: 10px;
   text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
@@ -95,7 +99,7 @@ h1 {
   text-decoration: none;
 
   font-weight: 600;
-  font-size: 15px;
+  font-size: 20px;
 
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
   transition:

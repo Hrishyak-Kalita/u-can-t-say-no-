@@ -1,36 +1,38 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>You Said YES 💖</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You Said YES 💖</title>
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="next.css" />
-</head>
+    <link rel="stylesheet" href="next.css" />
+  </head>
 
-<body>
+  <body>
+    <div class="container" id="resultCard">
+      <div class="big-heart">💖</div>
 
-  <div class="container">
-    <div class="big-heart">💖</div>
+      <h1>You said YES!</h1>
 
-    <h1>You said YES!</h1>
+      <p id="timeInfo" class="time-info"></p>
+      <!-- <a href="#" id="saveImageBtn" class="replay-btn">Save Result 📸</a> -->
 
-    <p>
-      I knew it 😌<br />
-      You just made this moment special.
-    </p>
+      <a href="#" id="shareBtn" class="share-btn">Share on WhatsApp 💬</a>
+      <a href="index.html" class="replay-btn">Replay 💘</a>
+    </div>
 
-    <a href="index.html" class="back-btn">Replay 💘</a>
-  </div>
+    <!-- 🎵 Background Music -->
+    <audio id="bgMusic" autoplay loop>
+      <source src="apnaSuno.mp3" type="audio/mpeg" />
+    </audio>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-  <!-- 🎵 Background Music -->
-  <audio id="bgMusic" autoplay loop>
-    <source src="apnaSuno.mp3" type="audio/mpeg" />
-  </audio>
-
-  <script src="next.js"></script>
-</body>
+    <script src="next.js"></script>
+  </body>
 </html>

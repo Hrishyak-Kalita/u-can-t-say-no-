@@ -5,6 +5,9 @@ const bgMusic = document.getElementById("bgMusic");
 
 let canMove = true;
 
+// ⏱ START TIMER AS SOON AS PAGE LOADS
+const startTime = Date.now();
+
 const messages = [
   "Wait 😳",
   "Heyyy nooo 🥺",
@@ -31,7 +34,7 @@ function enableMusic() {
 document.body.addEventListener("click", enableMusic, { once: true });
 document.body.addEventListener("touchstart", enableMusic, { once: true });
 
-/* ---------- NO ESCAPE (CLAMPED) ---------- */
+/* ---------- NO ESCAPE (LONG RANGE, SAFE) ---------- */
 function moveNo() {
   if (!canMove) return;
   canMove = false;
@@ -56,7 +59,7 @@ function moveNo() {
     targetX = Math.random() * maxX;
     targetY = Math.random() * maxY;
 
-    // 🔥 FORCE LONG MOVEMENT (MIN DISTANCE)
+    // 🔥 force BIG movement (no shaking)
     const dist = Math.hypot(targetX - startX, targetY - startY);
     if (dist < Math.min(maxX, maxY) * 0.55) {
       tries++;
@@ -86,16 +89,16 @@ function moveNo() {
     tries++;
   } while (overlap && tries < 20);
 
-  // 🏃‍♂️ fast → slow animation
+  // smooth fast → slow animation
   const duration = 520;
-  const startTime = performance.now();
+  const startTimeAnim = performance.now();
 
   function easeOut(t) {
     return 1 - Math.pow(1 - t, 3);
   }
 
   function animate(time) {
-    const elapsed = time - startTime;
+    const elapsed = time - startTimeAnim;
     const progress = Math.min(elapsed / duration, 1);
     const eased = easeOut(progress);
 
@@ -127,10 +130,14 @@ function moveNo() {
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-/* ---------- YES ---------- */
-// yesBtn.addEventListener("click", () => {
-//   window.location.href = "next.html";
-// });
+/* ---------- YES (SAVE TIME, LET <a> HANDLE NAVIGATION) ---------- */
+yesBtn.addEventListener("click", () => {
+  const timeTakenMs = Date.now() - startTime;
+  const timeTakenSec = Math.max(1, Math.round(timeTakenMs / 1000));
+
+  // store for next page
+  localStorage.setItem("timeTakenSec", timeTakenSec);
+});
 
 /* ---------- FALLING HEARTS ---------- */
 function spawnHeart() {

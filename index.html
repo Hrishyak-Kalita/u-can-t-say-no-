@@ -5,43 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>You Can’t Say No 💖</title>
 
-    <!-- Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&family=Nunito:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;600&family=Nunito:wght@700&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body class="romantic-mode">
-    <div class="card" id="card">
-      <svg
-        class="heart-border"
-        viewBox="0 0 512 512"
-        preserveAspectRatio="none"
-      >
+  <body>
+    <!-- ❤️ HEART + QUESTION -->
+    <div class="heart-wrap">
+      <svg class="heart-border" viewBox="0 0 512 512">
         <path
-          d="M256 470
-         C 40 320 40 160 150 110
-         C 220 80 256 130 256 170
-         C 256 130 292 80 362 110
-         C 472 160 472 320 256 470 Z"
+          d="M256 500
+           C 20 330 30 150 150 90
+           C 220 50 256 140 256 190
+           C 256 140 292 50 362 90
+           C 482 150 492 330 256 500 Z"
         />
       </svg>
 
-      <div id="loader" class="loader">💗</div>
-
-      <div id="content" class="hidden">
-        <h1>Will you be my valentine ? 💘</h1>
-        <div class="button-area" id="buttonArea">
-          <button id="yesBtn">Yes 💖</button>
-          <button id="noBtn">No 💔</button>
-        </div>
-      </div>
+      <h1 id="question">Will you be my Valentine? 💘</h1>
     </div>
 
-    <!-- 🎵 Background Music -->
+    <!-- 🎯 INTERACTION AREA -->
+    <div class="interaction-area" id="buttonArea">
+      <a href="next.html" id="yesBtn" aria-label="Yes">
+        <!-- <span class="heart-stroke"></span> -->
+        <span class="yes-label">YES</span>
+      </a>
+
+      <button id="noBtn">
+        <svg viewBox="0 0 64 56" class="broken-heart">
+          <path
+            d="
+      M32 52
+      C10 34 4 20 12 12
+      C18 6 28 10 32 18
+      C32 10 42 6 52 12
+      C60 20 54 34 32 52
+      Z
+    "
+          />
+          <!-- crack -->
+          <path d="M32 14 L28 26 L36 34 L30 44" class="crack" />
+        </svg>
+        <span>NO</span>
+      </button>
+    </div>
+
+    <!-- 🎵 MUSIC -->
     <audio id="bgMusic" autoplay loop muted>
       <source src="apnaSuno.mp3" type="audio/mpeg" />
     </audio>

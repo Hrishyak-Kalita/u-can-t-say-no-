@@ -38,27 +38,30 @@ function moveNo() {
 
   const area = buttonArea.getBoundingClientRect();
   const yes = yesBtn.getBoundingClientRect();
-  const padding = 18;
+  const padding = 16;
+  const safeZone = 40;
 
   const maxX = area.width - noBtn.offsetWidth - padding;
   const maxY = area.height - noBtn.offsetHeight - padding;
+
+  // current position
+  const startRect = noBtn.getBoundingClientRect();
+  const startX = startRect.left - area.left;
+  const startY = startRect.top - area.top;
 
   let targetX, targetY;
   let tries = 0;
 
   do {
-    // 🔥 LONG DISTANCE: bias towards far edges
-    targetX =
-      Math.random() > 0.5
-        ? Math.random() * (maxX * 0.3)
-        : maxX * 0.7 + Math.random() * (maxX * 0.3);
+    targetX = Math.random() * maxX;
+    targetY = Math.random() * maxY;
 
-    targetY =
-      Math.random() > 0.5
-        ? Math.random() * (maxY * 0.3)
-        : maxY * 0.7 + Math.random() * (maxY * 0.3);
-
-    tries++;
+    // 🔥 FORCE LONG MOVEMENT (MIN DISTANCE)
+    const dist = Math.hypot(targetX - startX, targetY - startY);
+    if (dist < Math.min(maxX, maxY) * 0.55) {
+      tries++;
+      continue;
+    }
 
     const noRect = {
       left: area.left + targetX,
@@ -67,23 +70,28 @@ function moveNo() {
       bottom: area.top + targetY + noBtn.offsetHeight,
     };
 
+    const yesSafe = {
+      left: yes.left - safeZone,
+      right: yes.right + safeZone,
+      top: yes.top - safeZone,
+      bottom: yes.bottom + safeZone,
+    };
+
     var overlap =
-      noRect.right > yes.left &&
-      noRect.left < yes.right &&
-      noRect.bottom > yes.top &&
-      noRect.top < yes.bottom;
-  } while (overlap && tries < 10);
+      noRect.right > yesSafe.left &&
+      noRect.left < yesSafe.right &&
+      noRect.bottom > yesSafe.top &&
+      noRect.top < yesSafe.bottom;
 
-  // current position
-  const start = noBtn.getBoundingClientRect();
-  const startX = start.left - area.left;
-  const startY = start.top - area.top;
+    tries++;
+  } while (overlap && tries < 20);
 
-  const duration = 420; // ms
+  // 🏃‍♂️ fast → slow animation
+  const duration = 520;
   const startTime = performance.now();
 
   function easeOut(t) {
-    return 1 - Math.pow(1 - t, 3); // cubic ease-out
+    return 1 - Math.pow(1 - t, 3);
   }
 
   function animate(time) {
@@ -105,12 +113,12 @@ function moveNo() {
 
   requestAnimationFrame(animate);
 
-  // 💬 message (still synced)
+  // 💬 floating message
   const msg = document.createElement("div");
   msg.className = "message";
   msg.textContent = messages[msgIndex++ % messages.length];
-  msg.style.left = `${targetX + 20}px`;
-  msg.style.top = `${targetY - 14}px`;
+  msg.style.left = `${targetX + 18}px`;
+  msg.style.top = `${targetY - 12}px`;
 
   buttonArea.appendChild(msg);
   setTimeout(() => msg.remove(), 2600);

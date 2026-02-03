@@ -163,7 +163,7 @@ body {
 #yesBtn .yes-label {
   transform: rotate(45deg);
 
-  font-family: "Nunito", sans-serif;
+  font-family: "Dancing Script", cursive;
   font-weight: 900;
   font-size: 30px; /* ⬅️ correct size */
   letter-spacing: 1.4px;

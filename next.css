@@ -42,7 +42,7 @@ body {
 
 /* ---------- CONTENT ---------- */
 .container {
-  width: min(92vw, 600px);
+  width: min(95vw, 600px);
   padding: 36px 24px 42px;
 
   backdrop-filter: blur(12px);

@@ -5,6 +5,8 @@ const bgMusic = document.getElementById("bgMusic");
 
 let canMove = true;
 
+let noClickCount = 0;
+
 // ⏱ START TIMER AS SOON AS PAGE LOADS
 const startTime = Date.now();
 
@@ -38,6 +40,9 @@ document.body.addEventListener("touchstart", enableMusic, { once: true });
 function moveNo() {
   if (!canMove) return;
   canMove = false;
+
+  noClickCount++;
+  localStorage.setItem("noClickCount", noClickCount);
 
   const area = buttonArea.getBoundingClientRect();
   const yes = yesBtn.getBoundingClientRect();

@@ -19,6 +19,16 @@ if (timeTaken) {
   timeEl.textContent = `⏱ You said YES instantly 😳💖`;
 }
 
+// ---------- SHOW NO COUNT ----------
+const noCountEl = document.getElementById("noCountInfo");
+const noCount = localStorage.getItem("noClickCount");
+
+if (noCount && Number(noCount) > 0) {
+  noCountEl.textContent = `🙈 You tried saying NO ${noCount} time${noCount > 1 ? "s" : ""} before saying YES 💖`;
+} else {
+  noCountEl.textContent = `😳 You didn’t even try to say NO, That's cool! I can feel the true love`;
+}
+
 // ---------- SHARE (IMAGE + WHATSAPP IN ONE GO) ----------
 const shareBtn = document.getElementById("shareBtn");
 const resultCard = document.getElementById("resultCard");
@@ -33,7 +43,7 @@ shareBtn.addEventListener("click", async (e) => {
   });
 
   const blob = await new Promise((resolve) =>
-    canvas.toBlob(resolve, "image/png")
+    canvas.toBlob(resolve, "image/png"),
   );
 
   const file = new File([blob], "yes-result.png", { type: "image/png" });
@@ -65,7 +75,9 @@ shareBtn.addEventListener("click", async (e) => {
 
   // 🔗 OPEN WHATSAPP TEXT SHARE
   const text = encodeURIComponent(
-    message + "\n\n(Attached image 👆)\nTry it yourself 👉 " + window.location.origin
+    message +
+      "\n\n(Attached image 👆)\nTry it yourself 👉 " +
+      window.location.origin,
   );
   window.open(`https://wa.me/?text=${text}`, "_blank");
 });
@@ -84,3 +96,9 @@ function spawnHeart() {
 }
 
 setInterval(spawnHeart, 700);
+
+// cleanup (optional)
+setTimeout(() => {
+  localStorage.removeItem("noClickCount");
+  localStorage.removeItem("timeTakenSec");
+}, 3000);
